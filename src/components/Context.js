@@ -1,15 +1,21 @@
 import React, { createContext } from 'react';
 
-
 const MoviesContext = createContext({
-  moviesData: {}
+  moviesData: {
+    count: 0,
+    movies: [],
+    searchValue: '',
+  }
 });
 
-export class Provider extends React.Component {
-
+export class MoviesProvider extends React.Component {
 
   state = {
-    moviesData: {}
+    moviesData: {
+      count: 0,
+      movies: [],
+      searchValue: '',
+    }
   };
 
   render() {
@@ -21,4 +27,4 @@ export class Provider extends React.Component {
   }
 }
 
-export const Consumer = MoviesContext.Consumer;
+export const MoviesConsumer = MoviesContext.Consumer;
