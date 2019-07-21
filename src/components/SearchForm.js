@@ -16,20 +16,41 @@ const getMovies = ( searchKey ) => {
   return;
 }
 
-const onSubmit = ( searchValue ) => async ( e ) => {
+const onSubmit = ( data ) => async ( e ) => {
   e.preventDefault();
-  const res = await getMovies( searchValue )
-  console.log("TCL: onSubmit -> res", res)
+  try {
+    const [ searchValue, updateSearchResult ] = data;
+    const res = await getMovies( searchValue )
+    console.log("TCL: onSubmit -> res", res)
+
+
+    if (res.status === 200 ) {
+      if ( res.data.Response === 'True' ) {
+        updateSearchResult({
+          moviesData: {
+            count: res.data.totalResults,
+            movies: res.data.Search,
+          }
+        });
+      }
+    } else {
+      console.error(res);
+      throw new Error('Invalid request status')
+    }
+    
+  } catch( err ) {
+    console.error( err )
+  }
 }
 
 const SearchForm = ( props ) => {
   return (
     <MoviesConsumer>
       {
-        ({ updateSearchValue, moviesData }) => {
+        ({ moviesData, updateSearchValue, updateSearchResult }) => {
           return (
             <div>
-              <form onSubmit={ onSubmit( moviesData.searchValue ) }>
+              <form onSubmit={ onSubmit( [moviesData.searchValue, updateSearchResult] ) }>
                 <fieldset>
                   <legend>Search for the best movies</legend>
                   <p>{ moviesData.searchValue }</p>

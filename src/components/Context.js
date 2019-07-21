@@ -7,6 +7,7 @@ const MoviesContext = createContext({
     searchValue: '',
   },
   updateSearchValue: () => {},
+  updateSearchResult: () => {},
 });
 
 export class MoviesProvider extends React.Component {
@@ -19,6 +20,18 @@ export class MoviesProvider extends React.Component {
     });
   }
 
+  updateSearchResult = newContext => {
+    const { count, movies } = newContext.moviesData;
+    console.log("TCL: MoviesProvider -> movies", movies)
+    console.log("TCL: MoviesProvider -> count", count)
+    this.setState({
+      moviesData: {
+        count,
+        movies,
+      }
+    })
+  }
+
   state = {
     moviesData: {
       count: 0,
@@ -26,6 +39,7 @@ export class MoviesProvider extends React.Component {
       searchValue: '',
     },
     updateSearchValue: this.updateSearchValue,
+    updateSearchResult: this.updateSearchResult,
   };
 
   render() {
