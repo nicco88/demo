@@ -11,7 +11,6 @@ const MoviesContext = createContext({
 
 export class MoviesProvider extends React.Component {
   updateSearchValue = newContext => {
-  console.log("TCL: MoviesProvider -> newContext", newContext)
     const { searchValue } = newContext.moviesData;
     this.setState({ 
       moviesData: {
