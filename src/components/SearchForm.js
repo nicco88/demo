@@ -32,6 +32,8 @@ const onSubmit = ( data ) => async ( e ) => {
             movies: res.data.Search,
           }
         });
+      } else {
+        // Let user know there were no results
       }
     } else {
       console.error(res);

@@ -22,8 +22,6 @@ export class MoviesProvider extends React.Component {
 
   updateSearchResult = newContext => {
     const { count, movies } = newContext.moviesData;
-    console.log("TCL: MoviesProvider -> movies", movies)
-    console.log("TCL: MoviesProvider -> count", count)
     this.setState({
       moviesData: {
         count,
