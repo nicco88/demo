@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { MoviesConsumer } from './Context';
+import { MoviesConsumer } from './MoviesContext';
 
 const url = 'http://www.omdbapi.com/?';
 

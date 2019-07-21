@@ -1,6 +1,6 @@
 import React from 'react';
 import SearchForm from './components/SearchForm'
-import { MoviesProvider } from './components/Context'
+import { MoviesProvider } from './components/MoviesContext'
 import List from './components/List'
 
 function App() {
