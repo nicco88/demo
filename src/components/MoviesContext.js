@@ -13,6 +13,7 @@ const MoviesContext = createContext({
     isOpen: false,
     data: {
       imdbID: '',
+      details: {},
     },
   },
   openModal: () => {},
@@ -39,17 +40,22 @@ export class MoviesProvider extends React.Component {
     })
   }
 
-  openModal = imdbID => () => {
-
-    this.setState({
-      detailData: {
-        isOpen: true,
-        data: {
-          imdbID,
-        },
-      },
-    });
-    console.log("TCL: MoviesProvider -> this.state", this.state)
+  openModal = (imdbID, getMovieDetail) => () => {
+    
+    getMovieDetail(imdbID)
+      .then(res => {
+      console.log("TCL: MoviesProvider -> openModal -> res", res)
+        this.setState({
+          detailData: {
+            isOpen: true,
+            data: {
+              imdbID,
+              details: res,
+            },
+          },
+        });
+      })
+      .catch(err => console.error(err))
   }
 
   destroyModal = () => {
@@ -74,6 +80,7 @@ export class MoviesProvider extends React.Component {
       isOpen: false,
       data: {
         imdbID: '',
+        details: {},
       },
     },
     openModal: this.openModal,

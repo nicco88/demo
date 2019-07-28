@@ -1,6 +1,21 @@
 import React from 'react';
 import { MoviesConsumer } from './MoviesContext';
 import Detail from './Detail';
+import axios from 'axios';
+
+
+const getMovieDetail = ( id ) => {
+  if ( id ) {
+    const url = 'http://www.omdbapi.com/?';
+    return axios.get( url, {
+      params: {
+        apikey: 'abef200c',
+        i: id,
+      }
+    })
+  }
+  return;
+}
 
 const List = () => {
   return (
@@ -51,7 +66,7 @@ const List = () => {
                           </p>
 
                           <button
-                            onClick={openModal(movie.imdbID)}
+                            onClick={openModal(movie.imdbID, getMovieDetail)}
                           >detail</button>
 
                         </div>

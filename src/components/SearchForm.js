@@ -2,10 +2,10 @@ import React from 'react';
 import axios from 'axios';
 import { MoviesConsumer } from './MoviesContext';
 
-const url = 'http://www.omdbapi.com/?';
 
 const getMovies = ( searchKey ) => {
   if ( searchKey ) {
+    const url = 'http://www.omdbapi.com/?';
     return axios.get( url, {
       params: {
         apikey: 'abef200c',
@@ -45,7 +45,7 @@ const onSubmit = ( data ) => async ( e ) => {
   }
 }
 
-const SearchForm = ( props ) => {
+const SearchForm = () => {
   return (
     <MoviesConsumer>
       {
