@@ -6,24 +6,22 @@ const MoviesContext = createContext({
     movies: [],
     searchValue: '',
   },
-  updateSearchValue: () => {},
-  updateSearchResult: () => {},
+  updateSearchValue: () => { },
+  updateSearchResult: () => { },
 
   detailData: {
     isOpen: false,
-    data: {
       imdbID: '',
-      details: {},
-    },
+      details: null,
   },
-  openModal: () => {},
-  destroyModal: () => {},
+  openModal: () => { },
+  destroyModal: () => { },
 });
 
 export class MoviesProvider extends React.Component {
   updateSearchValue = newContext => {
     const { searchValue } = newContext.moviesData;
-    this.setState({ 
+    this.setState({
       moviesData: {
         searchValue
       }
@@ -41,19 +39,27 @@ export class MoviesProvider extends React.Component {
   }
 
   openModal = (imdbID, getMovieDetail) => () => {
-    
+
     getMovieDetail(imdbID)
       .then(res => {
-      console.log("TCL: MoviesProvider -> openModal -> res", res)
-        this.setState({
-          detailData: {
-            isOpen: true,
-            data: {
-              imdbID,
-              details: res,
-            },
-          },
-        });
+        console.log("TCL: MoviesProvider -> openModal -> res", res)
+        const { status, data } = res;
+        if (status && status === 200) {
+          if (data && data.Response === 'True') {
+
+            this.setState({
+              detailData: {
+                isOpen: true,
+                  imdbID,
+                  data,
+              },
+            });
+          } else {
+            // manage data error
+          }
+        } else {
+          // manage status error
+        }
       })
       .catch(err => console.error(err))
   }
@@ -62,7 +68,8 @@ export class MoviesProvider extends React.Component {
     this.setState({
       detailData: {
         isOpen: false,
-        data: {},
+          imdbID: '',
+          data: null,
       },
     })
   }
@@ -78,10 +85,8 @@ export class MoviesProvider extends React.Component {
 
     detailData: {
       isOpen: false,
-      data: {
         imdbID: '',
-        details: {},
-      },
+        data: null,
     },
     openModal: this.openModal,
     destroyModal: this.destroyModal,
@@ -90,8 +95,8 @@ export class MoviesProvider extends React.Component {
   render() {
 
     return (
-      <MoviesContext.Provider value={ this.state }>
-        { this.props.children }
+      <MoviesContext.Provider value={this.state}>
+        {this.props.children}
       </MoviesContext.Provider>
     )
   }

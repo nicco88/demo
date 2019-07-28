@@ -11,6 +11,7 @@ const getMovieDetail = ( id ) => {
       params: {
         apikey: 'abef200c',
         i: id,
+        plot: 'full'
       }
     })
   }
@@ -22,7 +23,6 @@ const List = () => {
     <MoviesConsumer>
       {
         ({ moviesData, detailData, openModal }) => {
-        console.log("TCL: List -> detailData", detailData)
           return (
             <div>
               {detailData.isOpen && <Detail />}
@@ -37,7 +37,6 @@ const List = () => {
                 margin: '2rem auto 0'
               }}>
                 {moviesData.movies && moviesData.movies.map((movie, i) => {
-                console.log("TCL: List -> moviesData", moviesData)
                   return (
                     <li key={movie.imdbID + '_' + i}>
                       <div
