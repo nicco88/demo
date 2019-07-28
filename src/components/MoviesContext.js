@@ -8,6 +8,15 @@ const MoviesContext = createContext({
   },
   updateSearchValue: () => {},
   updateSearchResult: () => {},
+
+  detailData: {
+    isOpen: false,
+    data: {
+      imdbID: '',
+    },
+  },
+  openModal: () => {},
+  destroyModal: () => {},
 });
 
 export class MoviesProvider extends React.Component {
@@ -30,6 +39,28 @@ export class MoviesProvider extends React.Component {
     })
   }
 
+  openModal = imdbID => () => {
+
+    this.setState({
+      detailData: {
+        isOpen: true,
+        data: {
+          imdbID,
+        },
+      },
+    });
+    console.log("TCL: MoviesProvider -> this.state", this.state)
+  }
+
+  destroyModal = () => {
+    this.setState({
+      detailData: {
+        isOpen: false,
+        data: {},
+      },
+    })
+  }
+
   state = {
     moviesData: {
       count: 0,
@@ -38,9 +69,19 @@ export class MoviesProvider extends React.Component {
     },
     updateSearchValue: this.updateSearchValue,
     updateSearchResult: this.updateSearchResult,
+
+    detailData: {
+      isOpen: false,
+      data: {
+        imdbID: '',
+      },
+    },
+    openModal: this.openModal,
+    destroyModal: this.destroyModal,
   };
 
   render() {
+
     return (
       <MoviesContext.Provider value={ this.state }>
         { this.props.children }
