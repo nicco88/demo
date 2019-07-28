@@ -3,33 +3,38 @@ import axios from 'axios';
 import { MoviesConsumer } from './MoviesContext';
 
 
-const getMovies = ( searchKey ) => {
+export const getMovies = ( searchKey, page ) => {
   if ( searchKey ) {
     const url = 'http://www.omdbapi.com/?';
     return axios.get( url, {
       params: {
         apikey: 'abef200c',
         s: searchKey,
+        page,
       }
     })
   }
   return;
 }
 
-const onSubmit = ( data ) => async ( e ) => {
+export const onSubmit = ( data ) => async ( e ) => {
   e.preventDefault();
   try {
-    const [ searchValue, updateSearchResult ] = data;
-    const res = await getMovies( searchValue )
-    console.log("TCL: onSubmit -> res", res)
+    const [ moviesData, updateSearchResult ] = data;
+    console.log("TCL: onSubmit -> moviesData", moviesData)
+    let { searchValue, page } = moviesData;
+    const res = await getMovies( searchValue, page++ )
+    // console.log("TCL: onSubmit -> res", res)
 
 
     if (res.status === 200 ) {
       if ( res.data.Response === 'True' ) {
+        
         updateSearchResult({
           moviesData: {
             count: res.data.totalResults,
-            movies: res.data.Search,
+            movies: [...moviesData.movies, ...res.data.Search],
+            page,
           }
         });
       } else {
@@ -50,9 +55,10 @@ const SearchForm = () => {
     <MoviesConsumer>
       {
         ({ moviesData, updateSearchValue, updateSearchResult }) => {
+        console.log("TCL: SearchForm -> moviesData", moviesData)
           return (
             <div>
-              <form onSubmit={ onSubmit( [moviesData.searchValue, updateSearchResult] ) }>
+              <form onSubmit={ onSubmit( [moviesData, updateSearchResult] ) }>
                 <fieldset>
                   <legend>Search for the best movies</legend>
                   <p>{ moviesData.searchValue }</p>
@@ -77,5 +83,4 @@ const SearchForm = () => {
     </MoviesConsumer>
   )
 }
-
 export default SearchForm;

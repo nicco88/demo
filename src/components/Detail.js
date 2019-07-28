@@ -1,6 +1,6 @@
 import React from 'react';
 import { MoviesConsumer } from './MoviesContext';
-
+import no_pic from './../assets/no_pic.jpg'
 
 const DestroyTrigger = (props) => (
     <span onClick={ props.destroyModal }>Close</span>
@@ -46,6 +46,7 @@ const Detail = () => {
           >
             <img
               src={detailData.data.Poster}
+              onError={e => e.target.src = no_pic}
               style={{
                 width: '100%',
                 height: 'auto'

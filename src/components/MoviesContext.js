@@ -5,6 +5,7 @@ const MoviesContext = createContext({
     count: 0,
     movies: [],
     searchValue: '',
+    page: 1,
   },
   updateSearchValue: () => { },
   updateSearchResult: () => { },
@@ -23,20 +24,27 @@ export class MoviesProvider extends React.Component {
     const { searchValue } = newContext.moviesData;
     this.setState({
       moviesData: {
-        searchValue
+        // ...this.state.moviesData,
+        searchValue,
+        page: 1,
+        movies: [],
+        count: 0
       }
     });
   }
 
   updateSearchResult = newContext => {
-    const { count, movies } = newContext.moviesData;
+    const { count, movies, page } = newContext.moviesData;
     this.setState({
       moviesData: {
+        ...this.state.moviesData,
         count,
         movies,
+        page,
       }
     })
   }
+
 
   openModal = (imdbID, getMovieDetail) => () => {
 
@@ -79,6 +87,7 @@ export class MoviesProvider extends React.Component {
       count: 0,
       movies: [],
       searchValue: '',
+      page: 1,
     },
     updateSearchValue: this.updateSearchValue,
     updateSearchResult: this.updateSearchResult,

@@ -2,6 +2,8 @@ import React from 'react';
 import { MoviesConsumer } from './MoviesContext';
 import Detail from './Detail';
 import axios from 'axios';
+import LoadMoreButton from './LoadMoreButton'
+import no_pic from './../assets/no_pic.jpg'
 
 
 const getMovieDetail = ( id ) => {
@@ -53,7 +55,7 @@ const List = () => {
                               width: '100px'
                             }}
                             className="img"
-                            // onError={ console.error( 'image error')}
+                            onError={e => e.target.src = no_pic}
                             src={movie.Poster} />
                         </div>
                         <div>
@@ -75,8 +77,9 @@ const List = () => {
                 })
                 }
               </ul>
-
-
+              {moviesData.count > 0 
+              && moviesData.count > moviesData.movies.length
+              && <LoadMoreButton></LoadMoreButton>}
             </div>
           )
         }
