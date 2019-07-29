@@ -1,5 +1,6 @@
 import React, { createContext } from 'react';
 
+// Initialize context
 const MoviesContext = createContext({
   moviesData: {
     count: 0,
@@ -24,7 +25,6 @@ export class MoviesProvider extends React.Component {
     const { searchValue } = newContext.moviesData;
     this.setState({
       moviesData: {
-        // ...this.state.moviesData,
         searchValue,
         page: 1,
         movies: [],
@@ -35,6 +35,7 @@ export class MoviesProvider extends React.Component {
 
   updateSearchResult = newContext => {
     const { count, movies, page } = newContext.moviesData;
+    // This probably should be changed into a callback 
     this.setState({
       moviesData: {
         ...this.state.moviesData,
@@ -50,7 +51,6 @@ export class MoviesProvider extends React.Component {
 
     getMovieDetail(imdbID)
       .then(res => {
-        console.log("TCL: MoviesProvider -> openModal -> res", res)
         const { status, data } = res;
         if (status && status === 200) {
           if (data && data.Response === 'True') {
@@ -64,11 +64,14 @@ export class MoviesProvider extends React.Component {
             });
           } else {
             // manage data error
+            // should communicate the error to the user through a toast
           }
         } else {
           // manage status error
+           // should communicate the error to the user through a toast
         }
       })
+      // should communicate the error to the user through a toast
       .catch(err => console.error(err))
   }
 
