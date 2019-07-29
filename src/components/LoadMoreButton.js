@@ -1,21 +1,6 @@
 import React from 'react';
-// import axios from 'axios';
 import { MoviesConsumer } from './MoviesContext';
 import { onSubmit } from './SearchForm';
-
-// const loadMoreMovies = (searchKey, page) => {
-//   if (searchKey) {
-//     const url = 'http://www.omdbapi.com/?';
-//     return axios.get(url, {
-//       params: {
-//         apikey: 'abef200c',
-//         s: searchKey,
-//         page,
-//       }
-//     })
-//   }
-//   return;
-// }
 
 const LoadMore = () => {
   return (
