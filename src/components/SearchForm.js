@@ -24,9 +24,7 @@ export const onSubmit = ( data ) => async ( e ) => {
     console.log("TCL: onSubmit -> moviesData", moviesData)
     let { searchValue, page } = moviesData;
     const res = await getMovies( searchValue, page++ )
-    // console.log("TCL: onSubmit -> res", res)
-
-
+ 
     if (res.status === 200 ) {
       if ( res.data.Response === 'True' ) {
         
@@ -41,11 +39,13 @@ export const onSubmit = ( data ) => async ( e ) => {
         // Let user know there were no results
       }
     } else {
+      // Error should be communicated to the user through notification / toast
       console.error(res);
       throw new Error('Invalid request status')
     }
     
   } catch( err ) {
+    // Error should be communicated to the user through notification / toast
     console.error( err )
   }
 }
