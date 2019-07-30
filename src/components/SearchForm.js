@@ -55,7 +55,6 @@ const SearchForm = () => {
     <MoviesConsumer>
       {
         ({ moviesData, updateSearchValue, updateSearchResult }) => {
-        console.log("TCL: SearchForm -> moviesData", moviesData)
           return (
             <div>
               <form onSubmit={ onSubmit( [moviesData, updateSearchResult] ) }>
