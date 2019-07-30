@@ -3,7 +3,12 @@ import { MoviesConsumer } from './MoviesContext';
 import no_pic from './../assets/no_pic.jpg'
 
 const DestroyTrigger = (props) => (
-    <span onClick={ props.destroyModal }>Close</span>
+    <span
+      onClick={ props.destroyModal }
+      style={{
+        cursor: 'pointer',
+      }}
+    >Close</span>
 );
 
 const Detail = () => {

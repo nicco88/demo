@@ -4,6 +4,7 @@ import Detail from './Detail';
 import axios from 'axios';
 import LoadMoreButton from './LoadMoreButton'
 import no_pic from './../assets/no_pic.jpg'
+import { API_KEY } from './../config';
 
 
 const getMovieDetail = ( id ) => {
@@ -11,7 +12,7 @@ const getMovieDetail = ( id ) => {
     const url = 'http://www.omdbapi.com/?';
     return axios.get( url, {
       params: {
-        apikey: 'abef200c',
+        apikey: API_KEY,
         i: id,
         plot: 'full'
       }
@@ -40,7 +41,13 @@ const List = () => {
               }}>
                 {moviesData.movies && moviesData.movies.map((movie, i) => {
                   return (
-                    <li key={movie.imdbID + '_' + i}>
+                    <li
+                      style={{
+                        marginBottom: '1rem',
+                        boxShadow: '0 4px 8px 0 rgba(0, 0, 0, .2)',
+                      }}
+                      key={movie.imdbID + '_' + i}
+                    >
                       <div
                         className="movie-list-item"
                         style={{
@@ -52,7 +59,9 @@ const List = () => {
                         <div className="img-wrapper">
                           <img
                             style={{
-                              width: '100px'
+                              width: '100px',
+                              margin: 'auto',
+                              display: 'block',
                             }}
                             className="img"
                             onError={e => e.target.src = no_pic}
@@ -67,6 +76,9 @@ const List = () => {
                           </p>
 
                           <button
+                            style={{
+                              cursor: 'pointer'
+                            }}
                             onClick={openModal(movie.imdbID, getMovieDetail)}
                           >detail</button>
 

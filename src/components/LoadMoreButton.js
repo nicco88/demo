@@ -10,7 +10,13 @@ const LoadMore = () => {
           return (
             <form onSubmit={onSubmit([moviesData, updateSearchResult])}>
               <div>
-                <input style={{ width: '100%', margin: '2rem 0'}} type="submit" value="Load More"/>
+                <input
+                  style={{ 
+                    width: '100%',
+                    margin: '2rem 0',
+                    cursor: 'pointer'
+                  }}
+                  type="submit" value="Load More"/>
               </div>
             </form>
 

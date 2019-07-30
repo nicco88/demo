@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { MoviesConsumer } from './MoviesContext';
+import { API_KEY } from './../config';
 
 
 export const getMovies = ( searchKey, page ) => {
@@ -8,7 +9,7 @@ export const getMovies = ( searchKey, page ) => {
     const url = 'http://www.omdbapi.com/?';
     return axios.get( url, {
       params: {
-        apikey: 'abef200c',
+        apikey: API_KEY,
         s: searchKey,
         page,
       }
@@ -61,7 +62,6 @@ const SearchForm = () => {
               <form onSubmit={ onSubmit( [moviesData, updateSearchResult] ) }>
                 <fieldset>
                   <legend>Search for the best movies</legend>
-                  <p>{ moviesData.searchValue }</p>
                   <div>
                     <input
                       type="text"
@@ -71,7 +71,11 @@ const SearchForm = () => {
                           }
                         )}
                       />
-                    <input type="submit" />
+                    <input
+                      style={{
+                        cursor: 'pointer'
+                      }}
+                      type="submit" />
                   </div>
                 </fieldset>
               </form>
