@@ -22,7 +22,6 @@ export const onSubmit = ( data ) => async ( e ) => {
   e.preventDefault();
   try {
     const [ moviesData, updateSearchResult ] = data;
-    console.log("TCL: onSubmit -> moviesData", moviesData)
     let { searchValue, page } = moviesData;
     const res = await getMovies( searchValue, page++ )
  
